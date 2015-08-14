@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2015 GDG VIT Vellore.
+  ~ This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
+  ~
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="Account">
+
+        <Preference
+            android:key="logout"
+            android:title="Logout"
+            android:summary="Erases all data and restarts the app" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="About">
+
+        <Preference
+            android:key="about"
+            android:title="About Us">
+        </Preference>
+        <Preference
+            android:key="source"
+            android:title="Open Source Licenses">
+        </Preference>
+        <Preference
+            android:key="feedback"
+            android:title="Feedback">
+        </Preference>
+
+        <Preference
+            android:key="build"
+            android:title="Build Version"
+            android:summary="1.0.0">
+
+        </Preference>
+
+    </PreferenceCategory>
+
+<!--    <PreferenceCategory
+        android:title="@string/dialog_based_preferences">
+
+        <EditTextPreference
+            android:key="edittext_preference"
+            android:title="@string/title_edittext_preference"
+            android:summary="@string/summary_edittext_preference"
+            android:dialogTitle="@string/dialog_title_edittext_preference" />
+
+        <ListPreference
+            android:key="list_preference"
+            android:title="@string/title_list_preference"
+            android:summary="@string/summary_list_preference"
+            android:entries="@array/entries_list_preference"
+            android:entryValues="@array/entryvalues_list_preference"
+            android:dialogTitle="@string/dialog_title_list_preference" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/launch_preferences">-->
+
+        <!-- This PreferenceScreen tag sends the user to a new fragment of
+             preferences.  If running in a large screen, they can be embedded
+             inside of the overall preferences UI.
+        <PreferenceScreen
+            android:fragment="com.example.android.apis.preference.PreferenceWithHeaders$Prefs1FragmentInner"
+            android:title="@string/title_fragment_preference"
+            android:summary="@string/summary_fragment_preference">
+            Arbitrary key/value pairs can be included for fragment arguments
+            <extra android:name="someKey" android:value="somePrefValue" />
+        </PreferenceScreen>-->
+
+        <!-- This PreferenceScreen tag sends the user to a completely different
+             activity, switching out of the current preferences UI.
+        <PreferenceScreen
+            android:title="@string/title_intent_preference"
+            android:summary="@string/summary_intent_preference">
+
+            <intent android:action="android.intent.action.VIEW"
+                android:data="http://www.android.com" />
+
+        </PreferenceScreen>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/preference_attributes">
+
+        <CheckBoxPreference
+            android:key="parent_checkbox_preference"
+            android:title="@string/title_parent_preference"
+            android:summary="@string/summary_parent_preference" />-->
+
+        <!-- The visual style of a child is defined by this styled theme attribute.
+        <CheckBoxPreference
+            android:key="child_checkbox_preference"
+            android:dependency="parent_checkbox_preference"
+            android:layout="?android:attr/preferenceLayoutChild"
+            android:title="@string/title_child_preference"
+            android:summary="@string/summary_child_preference" />
+
+    </PreferenceCategory>
+-->
+
+</PreferenceScreen>

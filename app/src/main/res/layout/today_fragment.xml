@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<!--
+  ~ Copyright (c) 2015 GDG VIT Vellore.
+  ~ This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
+  ~
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:weightSum="100"
+    android:clickable="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="35"
+        android:background="@color/violet"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:weightSum="100">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="50"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/subject_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sample_subcode"
+                android:textColor="@color/white"
+                android:textSize="@dimen/general_big_thin" />
+
+            <TextView
+                android:id="@+id/subject_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:text="@string/sample_subname"
+                android:textColor="@color/white"
+                android:textSize="@dimen/general_more_big_bold"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/subject_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="@string/sample_subtime"
+                android:textColor="@color/white"
+                android:textSize="@dimen/general_big_thin"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bottom_half_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="50"
+            android:gravity="bottom"
+            android:orientation="vertical"
+            android:paddingBottom="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="100">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_weight="80"
+                    android:background="@drawable/fade_att_bar"
+                    android:gravity="center_vertical"
+                    android:weightSum="100">
+
+                    <LinearLayout
+                        android:id="@+id/attendance_bar"
+                        android:layout_width="0dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="79"
+                        android:background="@drawable/green_att_bar"
+                        android:orientation="vertical"></LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20"
+                    android:gravity="right|center_vertical">
+
+                    <TextView
+                        android:id="@+id/subject_per"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="79 %"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/general_big_thin"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:weightSum="100">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="50"
+                    android:weightSum="100">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_action_place" />
+
+                    <TextView
+                        android:id="@+id/subject_venue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/sample_subplace"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/general_big_thin"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="50"
+                    android:gravity="right|center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="If missed"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/general_big_thin" />
+
+                    <TextView
+                        android:id="@+id/ifmissed_per"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="8dp"
+                        android:text="72 %"
+                        android:textColor="@color/fadegreen"
+                        android:textSize="@dimen/general_big_thin"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="65"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipe_refresh_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/today_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </android.support.v7.widget.RecyclerView>
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+            <LinearLayout
+                android:id="@+id/ocassion_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:id="@+id/ocassion_container_inner"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="15dp">
+
+                    <LinearLayout
+                        android:id="@+id/ocassion_image_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/ocassion_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/weekend_vector"/>
+                    </LinearLayout>
+
+                    <!-- <LinearLayout
+                         android:id="@+id/weekend_music"
+                         android:layout_width="200dp"
+                         android:layout_height="100dp"
+                         android:orientation="vertical">
+
+                         <ImageView
+                             android:id="@+id/weekend_music_image"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:layout_marginLeft="45dp"
+                             android:src="@drawable/music_player" />
+                     </LinearLayout>
+
+                 <LinearLayout
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:orientation="horizontal">
+
+                         <LinearLayout
+                             android:id="@+id/weekend_shirt"
+                             android:layout_width="100dp"
+                             android:layout_height="100dp"
+                             android:orientation="vertical">
+
+                             <ImageView
+                                 android:id="@+id/weekend_shirt_image"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:src="@drawable/shirt" />
+                         </LinearLayout>
+
+                         <LinearLayout
+                             android:layout_width="100dp"
+                             android:layout_height="100dp"
+                             android:orientation="vertical">
+
+                             <LinearLayout
+                                 android:id="@+id/weekend_glasses"
+                                 android:layout_width="100dp"
+                                 android:layout_height="50dp"
+                                 android:orientation="vertical">
+
+                                 <ImageView
+                                     android:id="@+id/weekend_glasses_image"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:src="@drawable/glasses" />
+                             </LinearLayout>
+
+                             <LinearLayout
+                                 android:id="@+id/weekend_camera"
+                                 android:layout_width="100dp"
+                                 android:layout_height="50dp"
+                                 android:orientation="vertical">
+
+                                 <ImageView
+                                     android:id="@+id/weekend_camera_image"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:layout_marginRight="25dp"
+                                     android:src="@drawable/camera" />
+                             </LinearLayout>
+                         </LinearLayout>
+                    </LinearLayout>
+                -->
+                      </LinearLayout>
+
+                <TextView
+                    android:id="@+id/ocassion_qoute"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingLeft="50dp"
+                    android:paddingRight="50dp"
+                    android:paddingTop="10dp"
+                    android:text="@string/weekend_qoute"
+                    android:textColor="@color/violet"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+</LinearLayout>

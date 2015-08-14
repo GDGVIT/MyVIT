@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2015 GDG VIT Vellore.
+  ~ This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
+  ~
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_frame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginRight="68dp"
+    android:background="@color/black"
+    android:orientation="vertical"
+    android:weightSum="100"
+    tools:context="io.vit.vitio.Navigation.NavigationDrawerFragment">
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/header_reg_no"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="65"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:text="@string/sample_regno"
+                android:textColor="@color/white"
+                android:textSize="@dimen/drawer_textsize_bold"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/header_school"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="35"
+                android:gravity="right|center_vertical"
+                android:paddingRight="15dp"
+                android:text="@string/sample_schoolname"
+                android:textColor="@color/white"
+                android:textSize="@dimen/drawer_textsize_bold"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/subheader"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="17"
+        android:orientation="vertical"
+        android:weightSum="100">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="40"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/subheader_head_left"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="70"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:text="@string/nav_subhead1"
+                android:textColor="@color/white"
+                android:textSize="@dimen/drawer_textsize" />
+
+            <TextView
+                android:id="@+id/subheader_per"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="30"
+                android:gravity="right|center_vertical"
+                android:paddingRight="15dp"
+                android:text="@string/nav_subhead2_sample"
+                android:textColor="@color/white"
+                android:textSize="@dimen/drawer_textsize" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="60"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:weightSum="100">
+
+            <LinearLayout
+                android:id="@+id/subheader_per_left"
+                android:layout_width="0dp"
+                android:layout_height="17dp"
+                android:layout_weight="85"
+                android:orientation="vertical"
+                android:background="@color/brightgreen"></LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/subheader_per_right"
+                android:layout_width="0dp"
+                android:layout_height="17dp"
+                android:layout_weight="15"
+                android:orientation="vertical"
+                android:background="@color/alphawhite"></LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/body"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="63"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/drawer_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:orientation="horizontal"
+        android:weightSum="100">
+        <FrameLayout
+            android:id="@+id/nav_footer1"
+            android:layout_width="0dp"
+            android:layout_weight="50"
+            android:paddingLeft="15dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/nav_footer_left_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/nav_footer1"
+            android:layout_gravity="center_vertical|left"
+            android:textColor="@color/white"
+            android:textSize="@dimen/drawer_textsize" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/nav_footer2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="50"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="right|center_vertical"
+            android:paddingRight="7dp">
+
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/ic_settings"
+                android:padding="5dp"
+                />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

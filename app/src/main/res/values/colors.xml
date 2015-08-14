@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2015 GDG VIT Vellore.
+  ~ This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
+  ~
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+    <color name="colorPrimary">#7983ff</color>
+    <color name="colorPrimaryDark">#7B1FA2</color>
+    <color name="colorAccent">#FF5252</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray">#5e5e5e</color>
+    <color name="lightgray">#e9e9e9</color>
+    <color name="darkgray">#434343</color>
+    <color name="gray2">#d2d2d2</color>
+    <color name="darkergray">#303030</color>
+    <color name="darkestgray">#1b1b1b</color>
+
+    <color name="alphawhite">#22FFFFFF</color>
+    <color name="textcolorhint">#616161</color>
+    <color name="errorcolor">#ff0300</color>
+    <color name="brightgreen">#3cff00</color>
+    <color name="violet">#c74fde</color>
+    <color name="fadeviolet">#b061ff</color>
+    <color name="darkviolet">#7B1FA2</color>
+    <color name="violet_pd">#a745bd</color>
+    <color name="fadered">#ff8b74</color>
+    <color name="fadegreen">#69ec8c</color>
+    <color name="fadeyellow">#ffd84e</color>
+    <color name="lightviolet">#dbd1e9</color>
+    <color name="mediumviolet">#bfa2e2</color>
+    <color name="lightblack">#6f6f6f</color>
+    <color name="school">#8500ff</color>
+    <color name="tabsScrollColor">#FFFFFF</color>
+    <color name="darkgreen">#49b294</color>
+    <color name="darkgreenpressed">#3f9880</color>
+    <color name="fade_blue">#4982ff</color>
+    <color name="fade_white">#92ffffff</color>
+
+    <color name="light_blue_pd">#0288D1</color>
+    <color name="light_blue_p">#03A9F4</color>
+
+    <color name="teal_p">#009688</color>
+    <color name="teal_pd">#00796B</color>
+
+    <color name="orange_p">#FF5722</color>
+    <color name="orange_pd">#E64A19</color>
+
+     <color name="indigo_p">#3F51B5</color>
+    <color name="indigo_pd">#303F9F</color>
+
+    <color name="lime_p">#bfce35</color>
+    <color name="lime_pd">#a0a529</color>
+
+    <color name="red_p">#f44336</color>
+    <color name="red_pd">#d32f2f</color>
+    <color name="alphablack">#23000000</color>
+
+
+</resources>

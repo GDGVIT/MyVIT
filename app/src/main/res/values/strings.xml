@@ -1,0 +1,146 @@
+<!--
+  ~ Copyright (c) 2015 GDG VIT Vellore.
+  ~ This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
+  ~
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+    <string name="app_name">My VIT</string>
+    <string name="start_screen_head">My VIT</string>
+    <string name="login_screen_head">LOGIN</string>
+    <string name="sample_regno">13BITXXXX</string>
+    <string name="sample_schoolname">SITE</string>
+    <string name="nav_subhead1">ATTENDANCE AVERAGE</string>
+    <string name="nav_subhead2_sample">85%</string>
+    <string name="nav_footer1">GUEST USER</string>
+    <string name="draweropen">open</string>
+    <string name="drawerclose">close</string>
+    <string name="sample_subcode">MMA 201</string>
+    <string name="sample_subname">Microwave theory</string>
+    <string name="sample_subtime">next in 44 mins</string>
+    <string name="sample_subplace">SJT 701</string>
+    <string name="sample_subtype">Embedded Theory</string>
+    <string name="sample_per">72 %</string>
+    <string name="sample_slot">A1+TA1</string>
+    <string name="status">Status</string>
+    <string name="marks">Marks</string>
+    <string name="report">Report</string>
+    <string name="sample_school">SSL</string>
+    <string name="marks_qoute">To an uneducated, an A is just 3 sticks.</string>
+    <string name="marks_qoute_author">--A.A Milne</string>
+    <string name="goToUrl">GO TO URL</string>
+    <string name="error_message">Data unavailable due to some unreliable sources.</string>
+    <string name="end_of_day_qoute">\"Learn something new everyday, dust up old talents\"</string>
+    <string name="weekend_qoute">\"weekends are special even if your schedule is all over place\"</string>
+    <string name="licenses">**com.mcxiaoke.volley\n\n
+
+Copyright (C) 2014 Xiaoke Zhang\n
+Copyright (C) 2011 The Android Open Source Project\n\n
+
+Licensed under the Apache License, Version 2.0 (the &quot;License&quot;); \n
+you may not use this file except in compliance with the License. \n
+You may obtain a copy of the License at\n\n
+
+   http://www.apache.org/licenses/LICENSE-2.0\n
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. \n\n
+
+**com.melnykov:floatingactionbutton\n
+The MIT License (MIT) \n\n
+
+Copyright (c) 2014 Oleksandr Melnykov\n
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions: \n\n
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software. \n\n
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE. \n\n
+
+**CollegeCODE/VITacademics\n\n
+
+Copyright (C) 2014-2015  Aneesh Neelam &lt;neelam.aneesh@gmail.com&gt; \n
+Copyright (C) 2014-2015  Ayush Agarwal &lt;agarwalayush161@gmail.com&gt; \n
+Copyright (C) 2014-2015  Karthik Balakrishnan &lt;karthikb351@gmail.com&gt; \n
+Copyright (C) 2014-2015  Kishore Narendran &lt;kishore.narendran09@gmail.com&gt; \n
+Copyright (C) 2014-2015  Saurabh Joshi &lt;battlex94@gmail.com&gt; \n
+Copyright (C) 2014-2015  Sreeram Boyapati &lt;sreeram.boyapati2011@gmail.com&gt; \n
+Copyright (C) 2014-2015  Kunal Nagpal &lt;kunagpal@gmail.com&gt; \n
+GNU GENERAL PUBLIC LICENSE\n
+                       Version 3, 29 June 2007\n\n
+
+ Copyright (C) 2007 Free Software Foundation, Inc. &lt;http://fsf.org/&gt; \n
+ Everyone is permitted to copy and distribute verbatim copies
+ of this license document, but changing it is not allowed. \n
+
+</string>
+    <string name="sample_subfaculty">G Puviarasi</string>
+    <string-array name="startheads">
+        <item>TODAY</item>
+        <item>COURSES</item>
+        <item>TIMETABLE</item>
+        <item>MARKS</item>
+        <item>ATTENDANCE</item>
+        <item>MAP</item>
+    </string-array>
+    <string-array name="starttexts">
+        <item>Real time information of your current day classes.</item>
+        <item>All your registered courses filtered with location.</item>
+        <item>All days timetable with calendar.</item>
+        <item>Marks, Grades and Conclusions, all at one place.</item>
+        <item>Total and day-wise attendance available. Also track your future attendance.</item>
+        <item>VIT Vellore campus map to know where-to\'s.</item>
+    </string-array>
+    <string-array name="drawer_list_titles">
+        <item>TODAY</item>
+        <item>COURSES</item>
+        <item>TIMETABLE</item>
+        <item>FRIENDS</item>
+        <item>REMINDERS</item>
+        <item>CAMPUS MAP</item>
+        <item>SPOTLIGHT</item>
+    </string-array>
+
+    <string-array name="tabs_name_courses">
+        <item>ALL</item>
+        <item>SJT</item>
+        <item>TT</item>
+        <item>GDN</item>
+        <item>SMV</item>
+        <item>MB</item>
+        <item>CDMM</item>
+        <item>CBMR</item>
+    </string-array>
+
+        <string-array name="tabs_name_spotlight">
+            <item>ACADEMICS</item>
+            <item>COE</item>
+            <item>RESEARCH</item>
+        </string-array>
+
+
+</resources>

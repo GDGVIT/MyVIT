@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2015 GDG VIT Vellore.
+  ~ This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
+  ~
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/start_rounded_corner_page"
+    android:orientation="vertical"
+    android:weightSum="100">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="20"
+        android:gravity="center"
+        android:text="@string/login_screen_head"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/white"
+        android:textSize="21sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="60"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <EditText
+            android:id="@+id/regno_col"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/login_box_bg_both"
+            android:capitalize="characters"
+            android:ems="9"
+            android:hint="Register Number"
+            android:maxEms="9"
+            android:maxLength="9"
+            android:paddingBottom="7dp"
+            android:textCursorDrawable="@null"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="7dp"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textAllCaps="true"
+            android:textColorHint="@color/gray2"
+            android:textSize="20dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="100"
+            android:layout_marginTop="10dp">
+
+            <EditText
+                android:id="@+id/date_col"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="30"
+                android:background="@drawable/login_box_bg_both"
+                android:ems="2"
+                android:gravity="center"
+                android:hint="DD"
+                android:inputType="date"
+                android:maxEms="2"
+                android:textCursorDrawable="@null"
+                android:maxLength="2"
+                android:paddingBottom="7dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="7dp"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textAllCaps="true"
+                android:textColorHint="@color/gray2"
+                android:textSize="20dp" />
+            <EditText
+                android:id="@+id/month_col"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="30"
+                android:background="@drawable/login_box_bg_both"
+                android:ems="2"
+                android:gravity="center"
+                android:hint="MM"
+                android:inputType="number"
+                android:maxEms="2"
+                android:textCursorDrawable="@null"
+                android:maxLength="2"
+                android:paddingBottom="7dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/white"
+                android:paddingTop="7dp"
+                android:singleLine="true"
+                android:textAllCaps="true"
+                android:textColorHint="@color/gray2"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/year_col"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="40"
+                android:background="@drawable/login_box_bg_both"
+                android:ems="4"
+                android:gravity="center"
+                android:hint="YYYY"
+                android:inputType="number"
+                android:maxEms="4"
+                android:maxLength="4"
+                android:paddingBottom="7dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textCursorDrawable="@null"
+                android:paddingTop="7dp"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textAllCaps="true"
+                android:textColorHint="@color/gray2"
+                android:textSize="20dp" />
+        </LinearLayout>
+        <EditText
+            android:id="@+id/phoneno_col"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/login_box_bg_both"
+            android:ems="12"
+            android:layout_marginTop="10dp"
+            android:hint="Parent's Mobile Number"
+            android:inputType="number"
+            android:maxEms="12"
+            android:maxLength="12"
+            android:paddingBottom="7dp"
+            android:textCursorDrawable="@null"
+            android:paddingLeft="10dp"
+            android:textColor="@color/white"
+            android:paddingRight="10dp"
+            android:paddingTop="7dp"
+            android:singleLine="true"
+            android:textAllCaps="true"
+            android:textColorHint="@color/gray2"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/errortext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="Error"
+            android:textColor="@color/errorcolor"
+            android:textSize="17sp"
+            android:visibility="gone" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100"
+            android:layout_marginTop="15dp"
+            android:id="@+id/campus_select_radio_group">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vellore"
+                android:layout_weight="50"
+                android:textColor="@color/gray2"
+                android:id="@+id/vellore_radio"
+                android:gravity="center"
+                android:checked="true"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chennai"
+                android:layout_weight="50"
+                android:gravity="center"
+                android:textColor="@color/gray2"
+                android:id="@+id/chennai_radio"/>
+
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="20"
+        android:orientation="vertical">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="LOGIN"
+            android:id="@+id/next_button"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:textStyle="bold"
+            android:textSize="17sp"
+            android:background="@drawable/rounded_btn"
+            android:textColor="@color/white" />
+
+        <!--<Button
+            android:id="@+id/next_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/next_button_bg"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            android:text="GET STARTED"
+            android:textColor="@color/white"
+            android:textSize="21sp" />-->
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2015 GDG VIT Vellore.
+  ~ This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
+  ~
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+    <array name="drawer_icons">
+        <item>@drawable/ic_clock</item>
+        <item>@drawable/ic_marks</item>
+        <item>@drawable/ic_calendar_nav</item>
+        <item>@drawable/ic_person</item>
+        <item>@drawable/ic_drawer</item>
+        <item>@drawable/ic_action_place</item>
+        <item>@drawable/ic_spotlight</item>
+    </array>
+
+    <array name="onboarding_icons">
+        <item>@drawable/ic_onboading_today</item>
+        <item>@drawable/ic_onboading_courses</item>
+        <item>@drawable/ic_onboading_timetable</item>
+        <item>@drawable/ic_onboading_marks</item>
+        <item>@drawable/ic_onboading_attendance</item>
+        <item>@drawable/ic_onboading_map</item>
+    </array>
+
+    <array name="endofday_images">
+        <item>@drawable/meal</item>
+        <item>@drawable/books</item>
+        <item>@drawable/bed</item>
+    </array>
+
+    <array name="toolbar_colors">
+        <item>@color/violet</item>
+        <item>@color/light_blue_p</item>
+        <item>@color/teal_p</item>
+        <item>@color/gray</item>
+        <item>@color/gray</item>
+        <item>@color/indigo_p</item>
+        <item>@color/red_p</item>
+    </array>
+    <array name="statusbar_colors">
+        <item>@color/violet_pd</item>
+        <item>@color/light_blue_pd</item>
+        <item>@color/teal_pd</item>
+        <item>@color/darkgray</item>
+        <item>@color/darkgray</item>
+        <item>@color/indigo_pd</item>
+        <item>@color/red_pd</item>
+    </array>
+</resources>

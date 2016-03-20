@@ -16,8 +16,13 @@
 
 package io.vit.vitio.StartScreens;
 
+import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -26,6 +31,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AnimationSet;
@@ -44,14 +50,18 @@ public class DetailFragment extends Fragment {
     private ImageView displayImage;
     private TextView desHead,desText;
     private String DESHEAD="",DESTEXT="",NEXTBUTTONTXT="NEXT";
+    private Typeface typeface;
+
     //private Button nextButton;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
                 R.layout.detail_fragment, container, false);
+
         displayImage=(ImageView)rootView.findViewById(R.id.detail_image);
         desHead=(TextView)rootView.findViewById(R.id.des_head);
         desText=(TextView)rootView.findViewById(R.id.des_text);
+        setFonts();
         //nextButton=(Button)rootView.findViewById(R.id.next_button);
        /* nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,8 +70,39 @@ public class DetailFragment extends Fragment {
             }
         });*/
         setData();
+
         Log.d(String.valueOf(FRAGMENTID), "oncreateview");
         return rootView;
+    }
+
+    //TODO change display display image back to visible in  xml and put slide up animation back for non-lolipop devices
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    void circularRevealSchoolImage() {
+        // previously invisible view
+
+        displayImage.setVisibility(View.INVISIBLE);
+        final View myView = displayImage;
+
+        // get the center for the clipping circle
+        int cx = myView.getMeasuredWidth() / 2;
+        int cy = myView.getMeasuredHeight() / 2;
+
+        // get the final radius for the clipping circle
+        int finalRadius = Math.max(myView.getWidth(), myView.getHeight()) / 2;
+
+        // create the animator for this view (the start radius is zero)
+        Animator anim =
+                ViewAnimationUtils.createCircularReveal(myView, cx, cy, 0, finalRadius);
+
+        // make the view visible and start the animation
+        myView.setVisibility(View.VISIBLE);
+        anim.start();
+    }
+    private void setFonts() {
+        typeface = Typeface.createFromAsset(getResources().getAssets(), "fonts/Montserrat-Regular.ttf");
+        desHead.setTypeface(typeface);
+        desText.setTypeface(typeface);
+
     }
 
     @Override
@@ -93,7 +134,7 @@ public class DetailFragment extends Fragment {
         displayImage.setImageResource(DISPLAYIMAGERESOURCE);
         desHead.setText(DESHEAD);
         desText.setText(DESTEXT);
-        animate();
+        //animate();
         //nextButton.setText(NEXTBUTTONTXT);
     }
 

@@ -40,6 +40,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.vit.vitio.Extras.Themes.MyTheme;
 import io.vit.vitio.Fragments.CampusMapFragment;
 import io.vit.vitio.Fragments.Courses.CoursesFragment;
 import io.vit.vitio.Fragments.FriendsFragment;
@@ -51,6 +52,7 @@ import io.vit.vitio.HomeActivity;
 import io.vit.vitio.Instances.Course;
 import io.vit.vitio.Managers.DataHandler;
 import io.vit.vitio.R;
+import io.vit.vitio.Settings.FeedbackActivity;
 import io.vit.vitio.Settings.SettingsActivity;
 
 /**
@@ -71,9 +73,9 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
     Typeface tf;
     private LinearLayout fl;
     private int lastPosition = 0;
-
+    private MyTheme myTheme;
     private DataHandler dataHandler;
-    private int CURRENT_FRAGMENT=0;
+    private int CURRENT_FRAGMENT = 0;
 
     public NavigationDrawerFragment() {
 
@@ -97,8 +99,9 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
         navFooterLeftText.setTypeface(tf);
         adapter.setClickListener(this);
         navFooterSettings.setOnClickListener(this);
-        recyclerView.setAdapter(adapter);
+        navFooterLeft.setOnClickListener(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(adapter);
         setUserData();
         return rootView;
     }
@@ -131,7 +134,8 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
     }
 
     private void init(ViewGroup rootView) {
-        tf = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Montserrat-Regular.ttf");
+        myTheme=new MyTheme(getActivity());
+        tf = myTheme.getMyThemeTypeface();
         recyclerView = (RecyclerView) rootView.findViewById(R.id.drawer_recycler_view);
         headerRegNo = (TextView) rootView.findViewById(R.id.header_reg_no);
         headerSchool = (TextView) rootView.findViewById(R.id.header_school);
@@ -190,7 +194,7 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 float moveFactor = (fl.getWidth() * slideOffset);
-                hm.slideLayout(moveFactor);
+                //hm.slideLayout(moveFactor);
             }
         };
         drawerLayout.post(new Runnable() {
@@ -205,101 +209,101 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
 
     @Override
     public void onRecyclerItemClick(View v, int position) {
-       // if (lastPosition != position) {
-            final FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-            //toggleViewActive(0);
-            switch (position) {
+        // if (lastPosition != position) {
+        final FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        //toggleViewActive(0);
+        switch (position) {
 
-                case 0:
-                    drawerLayout.closeDrawers();
-                    Fragment today = new TodayFragment();
-                    ft.replace(R.id.main_fragment_holder, today);
-                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                    ft.addToBackStack(null);
-                    ft.commit();
-                    home.setToolbarFormat(0);
-                    home.changeStatusBarColor(0);
+            case 0:
+                drawerLayout.closeDrawers();
+                Fragment today = new TodayFragment();
+                ft.replace(R.id.main_fragment_holder, today);
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack(null);
+                ft.commit();
+                home.setToolbarFormat(0);
+                home.changeStatusBarColor(0);
 
 
-                    break;
-                case 1:
-                    drawerLayout.closeDrawers();
-                    Fragment courses = new CoursesFragment();
-                    ft.replace(R.id.main_fragment_holder, courses);
-                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                    ft.addToBackStack(null);
-                    ft.commit();
-                    home.setToolbarFormat(1);
-                    home.changeStatusBarColor(1);
+                break;
+            case 1:
+                drawerLayout.closeDrawers();
+                Fragment courses = new CoursesFragment();
+                ft.replace(R.id.main_fragment_holder, courses);
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack(null);
+                ft.commit();
+                home.setToolbarFormat(1);
+                home.changeStatusBarColor(1);
 
-                    break;
-                case 2:
-                    drawerLayout.closeDrawers();
-                    Fragment tt = new TimeTableFragment();
-                    ft.replace(R.id.main_fragment_holder, tt);
-                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                    ft.addToBackStack(null);
-                    ft.commit();
-                    home.setToolbarFormat(2);
-                    home.changeStatusBarColor(2);
-                    break;
-                case 3:
-                    drawerLayout.closeDrawers();
-                    Fragment friends = new FriendsFragment();
-                    ft.replace(R.id.main_fragment_holder, friends);
-                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                    ft.addToBackStack(null);
-                    ft.commit();
-                    home.setToolbarFormat(3);
-                    home.changeStatusBarColor(3);
-                    break;
-                case 4:
-                    drawerLayout.closeDrawers();
-                    Fragment reminders = new ReminderFragment();
-                    ft.replace(R.id.main_fragment_holder, reminders);
-                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                    ft.addToBackStack(null);
-                    ft.commit();
-                    home.setToolbarFormat(4);
-                    home.changeStatusBarColor(4);
-                    break;
-                case 5:
-                    drawerLayout.closeDrawers();
-                    Fragment campus = new CampusMapFragment();
-                    ft.replace(R.id.main_fragment_holder, campus);
-                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                    ft.addToBackStack(null);
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            ft.commit();
-                            home.setToolbarFormat(5);
-                            home.changeStatusBarColor(5);
-                        }
-                    }, 250);
-                    break;
-                case 6:
-                    drawerLayout.closeDrawers();
-                    Fragment spotlight = new SpotlightFragment();
-                    ft.replace(R.id.main_fragment_holder, spotlight);
-                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                    ft.addToBackStack(null);
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            ft.commit();
-                            home.setToolbarFormat(6);
-                            home.changeStatusBarColor(6);
-                        }
-                    }, 250);
-                    break;
-                default:
-                    drawerLayout.closeDrawers();
-            }
-            lastPosition = position;
+                break;
+            case 2:
+                drawerLayout.closeDrawers();
+                Fragment tt = new TimeTableFragment();
+                ft.replace(R.id.main_fragment_holder, tt);
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack(null);
+                ft.commit();
+                home.setToolbarFormat(2);
+                home.changeStatusBarColor(2);
+                break;
+            /*case 3:
+                drawerLayout.closeDrawers();
+                Fragment friends = new FriendsFragment();
+                ft.replace(R.id.main_fragment_holder, friends);
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack(null);
+                ft.commit();
+                home.setToolbarFormat(3);
+                home.changeStatusBarColor(3);
+                break;
+            case 4:
+                drawerLayout.closeDrawers();
+                Fragment reminders = new ReminderFragment();
+                ft.replace(R.id.main_fragment_holder, reminders);
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack(null);
+                ft.commit();
+                home.setToolbarFormat(4);
+                home.changeStatusBarColor(4);
+                break;*/
+            case 3:
+                drawerLayout.closeDrawers();
+                Fragment campus = new CampusMapFragment();
+                ft.replace(R.id.main_fragment_holder, campus);
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack(null);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        ft.commit();
+                        home.setToolbarFormat(3);
+                        home.changeStatusBarColor(3);
+                    }
+                }, 250);
+                break;
+            case 4:
+                drawerLayout.closeDrawers();
+                Fragment spotlight = new SpotlightFragment();
+                ft.replace(R.id.main_fragment_holder, spotlight);
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack(null);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        ft.commit();
+                        home.setToolbarFormat(4);
+                        home.changeStatusBarColor(4);
+                    }
+                }, 250);
+                break;
+            default:
+                drawerLayout.closeDrawers();
+        }
+        lastPosition = position;
         /// else {
         //    drawerLayout.closeDrawers();
-       // }
+        // }
     }
 
     private void toggleViewActive(int pos) {
@@ -313,8 +317,24 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
 
     @Override
     public void onClick(View v) {
-        startActivity(new Intent(getActivity(), SettingsActivity.class));
-        drawerLayout.closeDrawers();
+        switch (v.getId()) {
+            case R.id.nav_footer2:
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
+                drawerLayout.closeDrawers();
+                break;
+            case R.id.nav_footer1:
+                startActivity(new Intent(getActivity(), FeedbackActivity.class));
+                drawerLayout.closeDrawers();
+                break;
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        recyclerView.setAdapter(adapter);
+        myTheme.refreshTheme();
+        tf=myTheme.getMyThemeTypeface();
     }
 
     /*public class SwapFragment extends AsyncTask<Fragment,Void,Void>{
@@ -343,4 +363,4 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
             home.changeStatusBarColor(CURRENT_FRAGMENT);
         }
     }*/
-}
+    }

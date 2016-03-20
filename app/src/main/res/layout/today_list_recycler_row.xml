@@ -85,6 +85,7 @@
                android:layout_height="wrap_content"
                android:textSize="@dimen/general_medium2_thin"
                android:text="SEMICONDUCTOR"
+               android:transitionName="@string/sub_name_transition"
                android:textColor="@color/black"/>
 
             <TextView
@@ -95,13 +96,6 @@
                 android:text="IN ONE HOUR"
                 android:textColor="@color/black"/>
         </LinearLayout>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/meal"
-                android:id="@+id/middle_content_image"
-                android:paddingLeft="10dp"
-                android:visibility="gone"/>
 
         </FrameLayout>
         <LinearLayout

@@ -16,15 +16,18 @@
 
 package io.vit.vitio.Fragments;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import io.vit.vitio.HomeActivity;
 import io.vit.vitio.R;
 
 /**
@@ -35,7 +38,7 @@ public class CampusMapFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
                 R.layout.campusmap_fragment, container, false);
-
+        setTransitions();
         WebView view = (WebView) rootView.findViewById(R.id.img_map);
         view.setVisibility(View.GONE);
 
@@ -71,5 +74,19 @@ public class CampusMapFragment extends Fragment {
 
 
         return rootView;
+    }
+
+    private void setTransitions() {
+        if(Build.VERSION.SDK_INT>=21) {
+            setExitTransition(TransitionInflater.from(getActivity()).inflateTransition(android.R.transition.explode));
+            setReenterTransition(TransitionInflater.from(getActivity()).inflateTransition(android.R.transition.fade));
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((HomeActivity) getActivity()).setToolbarFormat(3);
+        ((HomeActivity) getActivity()).changeStatusBarColor(3);
     }
 }

@@ -22,7 +22,7 @@
     <string name="sample_schoolname">SITE</string>
     <string name="nav_subhead1">ATTENDANCE AVERAGE</string>
     <string name="nav_subhead2_sample">85%</string>
-    <string name="nav_footer1">GUEST USER</string>
+    <string name="nav_footer1">FEEDBACK</string>
     <string name="draweropen">open</string>
     <string name="drawerclose">close</string>
     <string name="sample_subcode">MMA 201</string>
@@ -99,6 +99,8 @@ GNU GENERAL PUBLIC LICENSE\n
 
 </string>
     <string name="sample_subfaculty">G Puviarasi</string>
+    <string name="sub_name_transition">subjectNameTransition</string>
+    <string name="image_transition">imageTransition</string>
     <string-array name="startheads">
         <item>TODAY</item>
         <item>COURSES</item>
@@ -119,8 +121,6 @@ GNU GENERAL PUBLIC LICENSE\n
         <item>TODAY</item>
         <item>COURSES</item>
         <item>TIMETABLE</item>
-        <item>FRIENDS</item>
-        <item>REMINDERS</item>
         <item>CAMPUS MAP</item>
         <item>SPOTLIGHT</item>
     </string-array>

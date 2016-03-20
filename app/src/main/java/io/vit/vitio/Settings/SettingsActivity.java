@@ -20,9 +20,11 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
@@ -43,6 +45,7 @@ import android.widget.Button;
 
 import java.util.List;
 
+import io.vit.vitio.Extras.Themes.MyTheme;
 import io.vit.vitio.Extras.TypeFaceSpan;
 import io.vit.vitio.HomeActivity;
 import io.vit.vitio.Managers.DataHandler;
@@ -54,16 +57,32 @@ import io.vit.vitio.StartScreens.FragmentHolder;
  */
 public class SettingsActivity extends AppCompatActivity {
     private Toolbar toolbar;
+    private MyTheme myTheme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_layout);
         init();
+        setToolbar();
+        getFragmentManager().beginTransaction().replace(R.id.fragment_container, new MainPrefsFragment()).commit();
+    }
+
+
+
+
+    private void init() {
+        toolbar=(Toolbar)findViewById(R.id.app_bar);
+        myTheme=new MyTheme(this);
+    }
+
+    private void setToolbar() {
+
         toolbar.setBackgroundColor(getResources().getColor(R.color.darkgray));
         setSupportActionBar(toolbar);
         SpannableString s = new SpannableString("SETTINGS");
-        s.setSpan(new TypeFaceSpan(this, "Montserrat-Regular.ttf"), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        myTheme.refreshTheme();
+        s.setSpan(myTheme.getMyThemeTypeFaceSpan(), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         getSupportActionBar().setTitle(s);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -74,16 +93,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
         changeStatusBarColor(getResources().getColor(R.color.darkergray));
-
-        getFragmentManager().beginTransaction().replace(R.id.fragment_container, new MainPrefsFragment()).commit();
     }
-
-
-
-    private void init() {
-        toolbar=(Toolbar)findViewById(R.id.app_bar);
-    }
-
 
     /**
      * This fragment shows the preferences for the first header.
@@ -106,17 +116,18 @@ public class SettingsActivity extends AppCompatActivity {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
 
-                    AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
-                    final AlertDialog alertDialog=builder.create();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    final AlertDialog alertDialog = builder.create();
                     alertDialog.setTitle("Alert");
                     alertDialog.setMessage("Are you sure you want to logout?");
                     alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             alertDialog.dismiss();
-                            DataHandler dataHandler=DataHandler.getInstance(getActivity());
+                            DataHandler dataHandler = DataHandler.getInstance(getActivity());
                             dataHandler.clearAllData();
-                            Intent intent=new Intent(getActivity(), FragmentHolder.class);
+                            Intent intent = new Intent(getActivity(), FragmentHolder.class);
+                            intent.putExtra("return", "logout");
                             getActivity().finish();
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
@@ -131,15 +142,24 @@ public class SettingsActivity extends AppCompatActivity {
                     alertDialog.show();
 
 
+                    return true;
+                }
+            });
+
+            findPreference("comingsoon").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    startActivity(new Intent(getActivity(), ComingSoonActivity.class));
 
                     return true;
                 }
             });
 
+
             findPreference("about").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    startActivity(new Intent(getActivity(),AboutActivity.class));
+                    startActivity(new Intent(getActivity(), AboutActivity.class));
 
                     return true;
                 }
@@ -163,6 +183,48 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             });
 
+            final MyTheme myTheme=new MyTheme(getActivity());
+            final ListPreference themePreference=(ListPreference)findPreference("theme");
+            final ListPreference fontPreference=(ListPreference)findPreference("font");
+            themePreference.setSummary(myTheme.getMyThemeName());
+            SpannableString s = new SpannableString(myTheme.getMyFontName());
+            s.setSpan(myTheme.getMyThemeTypeFaceSpan(), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            fontPreference.setSummary(s);
+            themePreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    Log.d("sp", (String) newValue);
+                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("theme", (String) newValue);
+                    editor.commit();
+                    Log.d("sp2", preferences.getString("theme", "null"));
+                    themePreference.setSummary(myTheme.getMyThemeName(Integer.parseInt((String) newValue)));
+                    myTheme.refreshTheme();
+                    return false;
+                }
+            });
+            SpannableString entrySpans[]=new SpannableString[fontPreference.getEntries().length];
+            for(int i=0;i<fontPreference.getEntries().length;i++){
+                entrySpans[i] = new SpannableString(fontPreference.getEntries()[i]);
+                entrySpans[i].setSpan(myTheme.getMyThemeTypeFaceSpan(i), 0, entrySpans[i].length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+            fontPreference.setEntries(entrySpans);
+            fontPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    Log.d("fp",(String)newValue);
+                    SharedPreferences preferences=PreferenceManager.getDefaultSharedPreferences(getActivity());
+                    SharedPreferences.Editor editor=preferences.edit();
+                    editor.putString("font",(String)newValue);
+                    editor.commit();
+                    Log.d("fp2", preferences.getString("font","null"));
+                    fontPreference.setSummary(myTheme.getMyFontName(Integer.parseInt((String) newValue)));
+                    myTheme.refreshTheme();
+                    return false;
+                }
+            });
+
         }
 
 
@@ -181,7 +243,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onResume();
         toolbar.setBackgroundColor(getResources().getColor(R.color.darkgray));
         SpannableString s = new SpannableString("SETTINGS");
-        s.setSpan(new TypeFaceSpan(this, "Montserrat-Regular.ttf"), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(myTheme.getMyThemeTypeFaceSpan(), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         getSupportActionBar().setTitle(s);
     }
 

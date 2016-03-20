@@ -34,6 +34,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
+import io.vit.vitio.Extras.Themes.MyTheme;
 import io.vit.vitio.Extras.TypeFaceSpan;
 import io.vit.vitio.Managers.AppController;
 import io.vit.vitio.Managers.DataHandler;
@@ -47,6 +48,7 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
     private Toolbar toolbar;
     private Button submitButton;
     private EditText textField;
+    private MyTheme myTheme;
     private DataHandler dataHandler;
     private final static String FEEDBACK_URL="http://www.princebansal.comeze.com/feedback.php";
 
@@ -55,26 +57,32 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.prefs_feedback_fragment);
         toolbar=(Toolbar)findViewById(R.id.app_bar);
+        myTheme=new MyTheme(this);
+        setToolbar();
+        submitButton=(Button)findViewById(R.id.submit_button);
+        textField=(EditText)findViewById(R.id.text_field);
+        submitButton.setOnClickListener(this);
+
+        dataHandler=DataHandler.getInstance(this);
+    }
+
+    private void setToolbar() {
 
         toolbar.setBackgroundColor(getResources().getColor(R.color.darkgray));
         setSupportActionBar(toolbar);
         SpannableString s = new SpannableString("FEEDBACK");
-        s.setSpan(new TypeFaceSpan(this, "Montserrat-Regular.ttf"), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        myTheme.refreshTheme();
+        s.setSpan(myTheme.getMyThemeTypeFaceSpan(), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         getSupportActionBar().setTitle(s);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+
             }
         });
         changeStatusBarColor(getResources().getColor(R.color.darkergray));
-
-        submitButton=(Button)findViewById(R.id.submit_button);
-        textField=(EditText)findViewById(R.id.text_field);
-        submitButton.setOnClickListener(this);
-
-        dataHandler=DataHandler.getInstance(this);
     }
 
     public void changeStatusBarColor(int color) {

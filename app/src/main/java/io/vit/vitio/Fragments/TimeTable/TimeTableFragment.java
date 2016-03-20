@@ -20,23 +20,17 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,18 +43,15 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import io.vit.vitio.Extras.ErrorDefinitions;
 import io.vit.vitio.Extras.ReturnParcel;
-import io.vit.vitio.Fragments.Courses.*;
-import io.vit.vitio.Fragments.SubjectViewFragment;
+import io.vit.vitio.Extras.Themes.MyTheme;
 import io.vit.vitio.HomeActivity;
 import io.vit.vitio.Instances.Course;
 import io.vit.vitio.Managers.ConnectAPI;
 import io.vit.vitio.Managers.DataHandler;
-import io.vit.vitio.Managers.Parsers.ParseCourses;
 import io.vit.vitio.Managers.Parsers.ParseTimeTable;
 import io.vit.vitio.R;
 
@@ -85,6 +76,7 @@ public class TimeTableFragment extends Fragment implements View.OnClickListener,
     private List<Course> courseList;
     Typeface typeface;
     private int NUM_PAGES=6;
+    private MyTheme myTheme;
 
     public TimeTableFragment() {
     }
@@ -96,6 +88,7 @@ public class TimeTableFragment extends Fragment implements View.OnClickListener,
         init(rootView);
         setFonts();
         setListeners();
+        setTransitions();
         dialog.setCancelable(false);
         changeImageBackground(0);
         if (dataHandler.isDatabaseBuild()) {
@@ -120,6 +113,13 @@ public class TimeTableFragment extends Fragment implements View.OnClickListener,
         connectAPI.setOnRequestListener(this);
         myTimeTablePager.addOnPageChangeListener(this);
 
+    }
+
+    private void setTransitions() {
+        if(Build.VERSION.SDK_INT>=21) {
+            setExitTransition(TransitionInflater.from(getActivity()).inflateTransition(android.R.transition.explode));
+            setReenterTransition(TransitionInflater.from(getActivity()).inflateTransition(android.R.transition.fade));
+        }
     }
 
     private void init(ViewGroup rootView) {
@@ -166,10 +166,12 @@ public class TimeTableFragment extends Fragment implements View.OnClickListener,
 
         dialog = new ProgressDialog(getActivity());
 
+        myTheme=new MyTheme(getActivity());
     }
 
     private void setFonts() {
-        typeface = Typeface.createFromAsset(getResources().getAssets(), "fonts/Montserrat-Regular.ttf");
+        myTheme.refreshTheme();
+        typeface = myTheme.getMyThemeTypeface();
         mDate.setTypeface(typeface);
         tuDate.setTypeface(typeface);
         wDate.setTypeface(typeface);
@@ -272,6 +274,7 @@ public class TimeTableFragment extends Fragment implements View.OnClickListener,
         super.onResume();
         ((HomeActivity) getActivity()).setToolbarFormat(2);
         ((HomeActivity) getActivity()).changeStatusBarColor(2);
+        setFonts();
     }
 
     public void changeImageBackground(int i) {

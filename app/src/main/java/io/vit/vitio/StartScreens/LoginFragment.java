@@ -20,6 +20,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,6 +93,8 @@ public class LoginFragment extends Fragment implements ConnectAPI.RequestListene
     }
 
     private void setInit() {
+        setTextWatchers();
+
         signInbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,6 +112,93 @@ public class LoginFragment extends Fragment implements ConnectAPI.RequestListene
 
 
         dataHandler.saveFirstTimeUser("true");
+    }
+
+    private void setTextWatchers() {
+        regnoCol.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(isFieldEmpty()) {
+                    if (regnoCol.getText().toString().matches("^[0-9]{2}[a-zA-Z]{3,}[0-9]{4}$")) {
+                        dateCol.requestFocus();
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        dateCol.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(isFieldEmpty()) {
+                    if (dateCol.getText().toString().length()==2) {
+                        monthCol.requestFocus();
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        monthCol.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(isFieldEmpty()) {
+                    if (monthCol.getText().toString().length()==2) {
+                        yearCol.requestFocus();
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        yearCol.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(isFieldEmpty()) {
+                    if (yearCol.getText().toString().length()==4) {
+                        phoneCol.requestFocus();
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
     }
 
     private void saveData() {
@@ -140,8 +231,8 @@ public class LoginFragment extends Fragment implements ConnectAPI.RequestListene
             Toast.makeText(getActivity(), "Enter valid date", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (phoneCol.getText().toString().length() != 10) {
-            Toast.makeText(getActivity(), "Enter a valid 10 digit mobile number", Toast.LENGTH_SHORT).show();
+        if ((phoneCol.getText().toString().length() >14)||(phoneCol.getText().toString().length() <10)) {
+            Toast.makeText(getActivity(), "Enter a valid 10-14 digit mobile number", Toast.LENGTH_SHORT).show();
             return false;
         }
 
@@ -151,19 +242,19 @@ public class LoginFragment extends Fragment implements ConnectAPI.RequestListene
 
     public boolean isFieldEmpty() {
         boolean i = false;
-        if (regnoCol.getText().equals("") || regnoCol.getText() == null) {
+        if (regnoCol.getText().toString().equals("") || regnoCol.getText() == null) {
             i = true;
         }
-        if (dateCol.getText().equals("") || dateCol.getText() == null) {
+        if (dateCol.getText().toString().equals("") || dateCol.getText() == null) {
             i = true;
         }
-        if (monthCol.getText().equals("") || monthCol.getText() == null) {
+        if (monthCol.getText().toString().equals("") || monthCol.getText() == null) {
             i = true;
         }
-        if (yearCol.getText().equals("") || yearCol.getText() == null) {
+        if (yearCol.getText().toString().equals("") || yearCol.getText() == null) {
             i = true;
         }
-        if (phoneCol.getText().equals("") || phoneCol.getText() == null) {
+        if (phoneCol.getText().toString().equals("") || phoneCol.getText() == null) {
             i = true;
         }
         return i;
@@ -254,4 +345,5 @@ public class LoginFragment extends Fragment implements ConnectAPI.RequestListene
     private void showToast(String return_message) {
         Toast.makeText(getActivity(), return_message, Toast.LENGTH_SHORT).show();
     }
+
 }

@@ -24,6 +24,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.view.View;
 
+import io.vit.vitio.Extras.Themes.MyTheme;
 import io.vit.vitio.Extras.TypeFaceSpan;
 import io.vit.vitio.R;
 
@@ -33,21 +34,30 @@ import io.vit.vitio.R;
 public class SourcesActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
+    private MyTheme myTheme;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.prefs_sources_fragment);
         toolbar=(Toolbar)findViewById(R.id.app_bar);
+        myTheme=new MyTheme(this);
+        setToolbar();
+    }
+
+    private void setToolbar() {
+
         toolbar.setBackgroundColor(getResources().getColor(R.color.darkgray));
         setSupportActionBar(toolbar);
         SpannableString s = new SpannableString("LICENSES");
-        s.setSpan(new TypeFaceSpan(this, "Montserrat-Regular.ttf"), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        myTheme.refreshTheme();
+        s.setSpan(myTheme.getMyThemeTypeFaceSpan(), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         getSupportActionBar().setTitle(s);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+
             }
         });
         changeStatusBarColor(getResources().getColor(R.color.darkergray));

@@ -23,7 +23,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginRight="68dp"
-    android:background="@color/black"
+    android:background="@color/translucent_black"
     android:orientation="vertical"
     android:weightSum="100"
     tools:context="io.vit.vitio.Navigation.NavigationDrawerFragment">
@@ -160,7 +160,7 @@
             android:layout_width="0dp"
             android:layout_weight="50"
             android:paddingLeft="15dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
+            android:background="@drawable/drawer_row_bg"
             android:clickable="true"
             android:layout_height="match_parent">
         <TextView
@@ -178,7 +178,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="50"
-            android:background="?attr/selectableItemBackgroundBorderless"
+            android:background="@drawable/drawer_row_bg"
             android:gravity="right|center_vertical"
             android:paddingRight="7dp">
 

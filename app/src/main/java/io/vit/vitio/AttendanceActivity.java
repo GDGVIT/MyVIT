@@ -22,8 +22,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -39,8 +37,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import io.vit.vitio.Extras.TypeFaceSpan;
-import io.vit.vitio.Fragments.SubjectViewFragment;
+import io.vit.vitio.Extras.Themes.MyTheme;
 import io.vit.vitio.Instances.Attendance;
 import io.vit.vitio.Instances.Course;
 import io.vit.vitio.Instances.Day;
@@ -55,6 +52,7 @@ public class AttendanceActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TextView dayHead, dateHead, statusHead;
     private Typeface typeface;
+    private MyTheme myTheme;
     private AttendanceListAdapter adapter;
     private DataHandler dataHandler;
     private Course myCourse;
@@ -74,7 +72,7 @@ public class AttendanceActivity extends AppCompatActivity {
 
     private void init() {
         recyclerView = (RecyclerView) findViewById(R.id.attendance_recycler_view);
-        typeface = Typeface.createFromAsset(getResources().getAssets(), "fonts/Montserrat-Regular.ttf");
+        myTheme=new MyTheme(this);
         dataHandler = DataHandler.getInstance(this);
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         dayHead = (TextView) findViewById(R.id.day_header);
@@ -85,7 +83,7 @@ public class AttendanceActivity extends AppCompatActivity {
     private void setToolbar() {
         setSupportActionBar(toolbar);
         SpannableString s = new SpannableString("Attendance");
-        s.setSpan(new TypeFaceSpan(this, "Montserrat-Regular.ttf"), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(myTheme.getMyThemeTypeFaceSpan(), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         getSupportActionBar().setTitle(s);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.darkgray)));
@@ -100,7 +98,7 @@ public class AttendanceActivity extends AppCompatActivity {
 
     private void setInit() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        typeface = Typeface.createFromAsset(getResources().getAssets(), "fonts/Montserrat-Regular.ttf");
+        typeface = myTheme.getMyThemeTypeface();
         dayHead.setTypeface(typeface);
         dateHead.setTypeface(typeface);
         statusHead.setTypeface(typeface);

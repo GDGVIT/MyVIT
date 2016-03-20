@@ -33,6 +33,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import io.vit.vitio.Extras.Themes.MyTheme;
 import io.vit.vitio.Extras.TypeFaceSpan;
 import io.vit.vitio.Instances.Course;
 import io.vit.vitio.Instances.Mark;
@@ -54,6 +55,8 @@ public class MarksActivity extends AppCompatActivity implements View.OnClickList
 
     private Typeface typeface;
 
+    private MyTheme myTheme;
+
     private Course myCourse;
 
     private DataHandler dataHandler;
@@ -73,7 +76,7 @@ public class MarksActivity extends AppCompatActivity implements View.OnClickList
 
 
     private void setTypfaces() {
-        typeface = Typeface.createFromAsset(getResources().getAssets(), "fonts/Montserrat-Regular.ttf");
+        typeface = myTheme.getMyThemeTypeface();
         quiz1Head.setTypeface(typeface);
         quiz2Head.setTypeface(typeface);
         quiz3Head.setTypeface(typeface);
@@ -130,12 +133,14 @@ public class MarksActivity extends AppCompatActivity implements View.OnClickList
 
         dataHandler = DataHandler.getInstance(this);
 
+        myTheme=new MyTheme(this);
+
     }
 
     private void setToolbar() {
         setSupportActionBar(toolbar);
         SpannableString s = new SpannableString("Marks");
-        s.setSpan(new TypeFaceSpan(this, "Montserrat-Regular.ttf"), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(myTheme.getMyThemeTypeFaceSpan(), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         getSupportActionBar().setTitle(s);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.darkgray)));

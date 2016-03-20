@@ -62,8 +62,10 @@ public class ParseCourses extends ParseResponse {
                     JSONObject c = coursesArray.getJSONObject(i);
 
                     Course course = getCourse(c);
-                    courseList.add(course);
-
+                    if (course != null)
+                        courseList.add(course);
+                    else
+                        continue;
                 }
                 return courseList;
             } else
@@ -77,27 +79,29 @@ public class ParseCourses extends ParseResponse {
     public static Course getCourse(JSONObject c) {
         Course course = new Course(c);
         try {
-            course.setCLASS_NUMBER(c.getString("class_number"));
-            course.setCOURSE_TITLE(c.getString("course_title"));
-            course.setCOURSE_TYPE(c.getString("subject_type"));
-            course.setCOURSE_CODE(c.getString("course_code"));
-            course.setCOURSE_LTPC(c.getString("ltpc"));
-            course.setCOURSE_MODE(c.getString("course_mode"));
-            course.setCOURSE_OPTION(c.getString("course_option"));
-            course.setCOURSE_SLOT(c.getString("slot"));
-            course.setCOURSE_VENUE(c.getString("venue"));
-            course.setCOURSE_FACULTY(c.getString("faculty"));
-            course.setCOURSE_REGISTRATIONSTATUS(c.getString("registration_status"));
-            course.setCOURSE_BILL_DATE(c.getString("bill_date"));
-            course.setCOURSE_BILL_NUMBER(c.getString("bill_number"));
-            course.setCOURSE_PROJECT_TITLE(c.getString("project_title"));
-
-
-            course.setCOURSE_ATTENDANCE(getAttendance(c.getJSONObject("attendance")));
-            course.setCOURSE_TIMING(getTimings(c.getJSONArray("timings")));
-            course.setCOURSE_MARKS(getCouseMarks(c.getJSONObject("marks")));
-            course.setCOURSE_TYPE_SHORT(getCourseTypeShort(course));
-            return course;
+            if (c.getString("course_mode").equals(Course.COURSE_MODE_PBC)) {
+                return null;
+            } else {
+                course.setCLASS_NUMBER(c.getString("class_number"));
+                course.setCOURSE_TITLE(c.getString("course_title"));
+                course.setCOURSE_TYPE(c.getString("subject_type"));
+                course.setCOURSE_CODE(c.getString("course_code"));
+                course.setCOURSE_LTPC(c.getString("ltpc"));
+                course.setCOURSE_MODE(c.getString("course_mode"));
+                course.setCOURSE_OPTION(c.getString("course_option"));
+                course.setCOURSE_SLOT(c.getString("slot"));
+                course.setCOURSE_VENUE(c.getString("venue"));
+                course.setCOURSE_FACULTY(c.getString("faculty"));
+                course.setCOURSE_REGISTRATIONSTATUS(c.getString("registration_status"));
+                course.setCOURSE_BILL_DATE(c.getString("bill_date"));
+                course.setCOURSE_BILL_NUMBER(c.getString("bill_number"));
+                course.setCOURSE_PROJECT_TITLE(c.getString("project_title"));
+                course.setCOURSE_ATTENDANCE(getAttendance(c.getJSONObject("attendance")));
+                course.setCOURSE_TIMING(getTimings(c.getJSONArray("timings")));
+                course.setCOURSE_MARKS(getCouseMarks(c.getJSONObject("marks")));
+                course.setCOURSE_TYPE_SHORT(getCourseTypeShort(course));
+                return course;
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();

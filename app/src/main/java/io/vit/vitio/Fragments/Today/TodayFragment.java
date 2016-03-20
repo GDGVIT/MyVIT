@@ -20,30 +20,24 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.RoundRectShape;
-import android.graphics.drawable.shapes.Shape;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.AnimationSet;
-import android.view.animation.AnticipateInterpolator;
-import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -51,18 +45,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import io.vit.vitio.Extras.ErrorDefinitions;
 import io.vit.vitio.Extras.ReturnParcel;
-import io.vit.vitio.Fragments.SubjectViewFragment;
+import io.vit.vitio.Extras.Themes.MyTheme;
+import io.vit.vitio.Fragments.SubjectView.SubjectViewFragmentTrial;
 import io.vit.vitio.Fragments.TimeTable.TimeTableListInfo;
 import io.vit.vitio.HomeActivity;
 import io.vit.vitio.Instances.Course;
 import io.vit.vitio.Managers.ConnectAPI;
 import io.vit.vitio.Managers.DataHandler;
-import io.vit.vitio.Managers.Parsers.ParseCourses;
 import io.vit.vitio.Managers.Parsers.ParseTimeTable;
 import io.vit.vitio.R;
 
@@ -77,7 +70,7 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Con
     //Declare Views
     private TextView subjectCode, subjectName, subjectTime, subjectPer, subjectVenue, ifmissedPer, ocassionQoute;
     private RecyclerView recyclerView;
-    private LinearLayout attendanceBar, bottomHalf, ocassionContainer, ocassionContainerInner;
+    private LinearLayout attendanceBar, bottomHalf, ocassionContainer, ocassionContainerInner,topHalf,headerLayout;
     private ImageView ocassionImage;
 
     private TodayListAdapter adapter;
@@ -86,8 +79,8 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Con
     private ProgressDialog dialog;
     private List<Course> courseList;
     private Typeface typeface;
-
-    private SwipeRefreshLayout swipeRefreshLayout;
+    private MyTheme theme;
+    private GeneralSwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -97,9 +90,17 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Con
         setFonts();
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         setListeners();
+        setTransitions();
         dialog.setCancelable(false);
         setData();
         return rootView;
+    }
+
+    private void setTransitions() {
+        if(Build.VERSION.SDK_INT>=21) {
+            setExitTransition(TransitionInflater.from(getActivity()).inflateTransition(android.R.transition.explode));
+            setReenterTransition(TransitionInflater.from(getActivity()).inflateTransition(android.R.transition.fade));
+        }
     }
 
 
@@ -114,8 +115,10 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Con
         recyclerView = (RecyclerView) rootView.findViewById(R.id.today_recycler_view);
         attendanceBar = (LinearLayout) rootView.findViewById(R.id.attendance_bar);
         bottomHalf = (LinearLayout) rootView.findViewById(R.id.bottom_half_content);
+        topHalf = (LinearLayout) rootView.findViewById(R.id.top_half_content);
         ocassionContainer = (LinearLayout) rootView.findViewById(R.id.ocassion_container);
         ocassionContainerInner = (LinearLayout) rootView.findViewById(R.id.ocassion_container_inner);
+        headerLayout= (LinearLayout) rootView.findViewById(R.id.header_layout);
 
         ocassionImage = (ImageView) rootView.findViewById(R.id.ocassion_image);
 
@@ -130,11 +133,14 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Con
 
         dialog = new ProgressDialog(getActivity());
 
-        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout = (GeneralSwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setRecyclerView(recyclerView);
+
+        theme=new MyTheme(getActivity());
     }
 
     private void setFonts() {
-        typeface = Typeface.createFromAsset(getResources().getAssets(), "fonts/Montserrat-Regular.ttf");
+        typeface = theme.getMyThemeTypeface();
         subjectCode.setTypeface(typeface);
         subjectName.setTypeface(typeface);
         subjectTime.setTypeface(typeface);
@@ -151,7 +157,6 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Con
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-
 
             @Override
             public void onRefresh() {
@@ -225,6 +230,7 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Con
 
     private void setWeekendFormat() {
         bottomHalf.setVisibility(LinearLayout.GONE);
+        topHalf.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,0,100));
         subjectCode.setVisibility(LinearLayout.GONE);
         //subjectName.setVisibility(TextView.GONE);
         subjectName.setText("it's a");
@@ -265,6 +271,10 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Con
     }
 
     private void animateView() {
+        PowerManager powerManager=(PowerManager)getActivity().getSystemService(Context.POWER_SERVICE);
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP&&powerManager.isPowerSaveMode()){
+            return;
+        }
         //float dimension = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, getResources().getDisplayMetrics());
         ObjectAnimator objectAnimatorX = ObjectAnimator.ofFloat(ocassionImage, "scaleX", 1f, 0.8f);
         ObjectAnimator objectAnimatorY = ObjectAnimator.ofFloat(ocassionImage, "scaleY", 1f, 0.8f);
@@ -285,6 +295,7 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Con
 
         subjectTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, 19);
         subjectName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 21);
+        topHalf.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,0,50));
         Course currentClass = parseTimeTable.getCurrentClass(todaytimeTable);
 
         if (currentClass != null) {
@@ -372,6 +383,7 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Con
                 ifmissedPer.setText(ifmissed + "%");
                 subjectTime.setText(header.getStatus());
             } else {
+                topHalf.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,0,100));
                 bottomHalf.setVisibility(LinearLayout.GONE);
                 subjectCode.setVisibility(LinearLayout.GONE);
                 recyclerView.setAdapter(new TodayListAdapter(getActivity(), new ArrayList<TimeTableListInfo>()));
@@ -488,7 +500,12 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Con
         ((HomeActivity) getActivity()).setToolbarFormat(0);
         ((HomeActivity) getActivity()).changeStatusBarColor(0);
         setData();
+        theme.refreshTheme();
+        headerLayout.setBackgroundColor(theme.getToolbarColorTypedArray().getColor(0,-1));
+        setFonts();
     }
+
+
 
     @Override
     public void onClick(View v) {
@@ -528,12 +545,12 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Con
             if (dataT != null) {
                 float d = getResources().getDisplayMetrics().density;
                 holder.layout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (75 * d)));
-                holder.middleContentImage.setVisibility(ImageView.GONE);
+               // holder.middleContentImage.setVisibility(ImageView.GONE);
                 holder.middleContentInfo.setVisibility(LinearLayout.VISIBLE);
                 holder.rightContentInfo.setVisibility(LinearLayout.VISIBLE);
                 TimeTableListInfo info = dataT.get(position);
                 holder.subName.setText(info.name);
-                holder.subTime.setText(info.time);
+                holder.subTime.setText(info.time12);
                 holder.subVenue.setText(info.venue);
                 holder.subTypeShort.setText(info.typeShort);
                 int p = Integer.parseInt((info.per.split(" ")[0]));
@@ -546,12 +563,12 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Con
                     holder.contLine.setVisibility(LinearLayout.INVISIBLE);
                 }
             } else if (dataI != null) {
-                holder.middleContentImage.setVisibility(ImageView.VISIBLE);
+               // holder.middleContentImage.setVisibility(ImageView.VISIBLE);
                 holder.middleContentInfo.setVisibility(LinearLayout.GONE);
                 holder.rightContentInfo.setVisibility(LinearLayout.GONE);
                 holder.layout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                 Integer id = dataI.get(position);
-                holder.middleContentImage.setImageResource(id.intValue());
+                //holder.middleContentImage.setImageResource(id.intValue());
                 if (position == dataI.size() - 1) {
                     holder.contLine.setVisibility(LinearLayout.INVISIBLE);
                 }
@@ -566,6 +583,8 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Con
                 return dataT.size();
             else return 0;
         }
+
+
 
         class TodayViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -585,7 +604,7 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Con
                 middleContentInfo = (LinearLayout) itemView.findViewById(R.id.middle_content_info);
                 rightContentInfo = (LinearLayout) itemView.findViewById(R.id.right_content_info);
 
-                middleContentImage = (ImageView) itemView.findViewById(R.id.middle_content_image);
+                //middleContentImage = (ImageView) itemView.findViewById(R.id.middle_content_image);
                 subName.setTypeface(typeface);
                 subTime.setTypeface(typeface);
                 subPer.setTypeface(typeface);
@@ -596,14 +615,25 @@ public class TodayFragment extends Fragment implements View.OnClickListener, Con
             }
 
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
+                SubjectViewFragmentTrial subject = new SubjectViewFragmentTrial();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                Fragment subject = new SubjectViewFragment();
                 Bundle arguments = new Bundle();
                 arguments.putString("class_number", String.valueOf(dataT.get(getAdapterPosition()).clsnbr));
                 subject.setArguments(arguments);
                 ft.replace(R.id.main_fragment_holder, subject);
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                //ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                if(Build.VERSION.SDK_INT>=21) {
+                    setSharedElementReturnTransition(TransitionInflater.from(getActivity()).inflateTransition(R.transition.trans_move));
+                    setExitTransition(TransitionInflater.from(getActivity()).inflateTransition(android.R.transition.explode));
+                    subject.setSharedElementEnterTransition(TransitionInflater.from(getActivity()).inflateTransition(R.transition.trans_move));
+                    subject.setEnterTransition(TransitionInflater.from(getActivity()).inflateTransition(android.R.transition.explode));
+                    subject.setSubNameId(subName.getTransitionName());
+                    subject.setImageNameId(headerLayout.getTransitionName());
+                    ft.addSharedElement(subName,subName.getTransitionName());
+                    ft.addSharedElement(headerLayout,headerLayout.getTransitionName());
+                }
+
                 ft.addToBackStack(null);
                 ft.commit();
             }

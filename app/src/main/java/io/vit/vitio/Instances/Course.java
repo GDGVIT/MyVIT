@@ -18,8 +18,6 @@ package io.vit.vitio.Instances;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import io.vit.vitio.R;
@@ -29,6 +27,13 @@ import io.vit.vitio.R;
  */
 
 public class Course {
+
+    //Constants
+    public static String COURSE_MODE_CBL="CBL";
+    public static String COURSE_MODE_PBL="PBL";
+    public static String COURSE_MODE_PBC="PBC";
+    public static String COURSE_MODE_LBC="LBC";
+
 
 
     //Course Attributes
@@ -66,8 +71,13 @@ public class Course {
             String tag=regno.replaceAll("[0-9]*","").trim();
             switch (tag){
                 case "BIT":
+                case "MSE":
+                case "BAM":
+                case "BCA":
+                case "MCA":
                     return "SITE";
                 case "BCE":
+                case "BCS":
                     return "SCSE";
                 case "BEC":
                     return "SENSE";
@@ -255,19 +265,19 @@ public class Course {
     public int getBuildingImageId() {
         String buil=getBuilding();
         if(buil.toUpperCase().contains("SJT")){
-            return R.drawable.sjt_vector_mod;
+            return R.drawable.sjt_vectory;
         }
         else if(buil.toUpperCase().contains("SMV")){
-            return R.drawable.smv_mod;
+            return R.drawable.smvy;
         }
         else if(buil.toUpperCase().contains("TT")){
-            return R.drawable.tt_vector_mod;
+            return R.drawable.tty;
         }
         else if(buil.toUpperCase().contains("MB")){
-            return R.drawable.mb_mod;
+            return R.drawable.mb_vectory;
         }
         else if(buil.toUpperCase().contains("GDN")){
-            return R.drawable.gdn_mod;
+            return R.drawable.gdny;
         }
         else {
             return R.drawable.cdmm_mod;

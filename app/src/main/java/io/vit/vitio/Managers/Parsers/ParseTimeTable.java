@@ -88,7 +88,8 @@ public class ParseTimeTable {
                             //Log.d("inif", "inif");
                             timeTableListInfo.name = course.getCOURSE_TITLE();
                             timeTableListInfo.venue = course.getCOURSE_VENUE();
-                            timeTableListInfo.time = slott.getSlotTiming().toString();
+                            timeTableListInfo.time12 = slott.getSlotTiming().toString(Timing.FORMAT12);
+                            timeTableListInfo.time24 = slott.getSlotTiming().toString(Timing.FORMAT24);
                             timeTableListInfo.clsnbr = Integer.parseInt(course.getCLASS_NUMBER());
                             timeTableListInfo.per = course.getCOURSE_ATTENDANCE().getPERCENTAGE() + " %";
                             timeTableListInfo.typeShort=course.getCOURSE_TYPE_SHORT();
@@ -104,7 +105,8 @@ public class ParseTimeTable {
                             if (j > 0) {
                                 if (slott.getSlotCode().equals(slotTheoryList.get(j - 1).getSlotCode())) {
                                     Timing newTiming = new Timing(new Day(i), slotTheoryList.get(j - 1).getSlotTiming().getSTART_TIME(), slott.getSlotTiming().getEND_TIME());
-                                    timeTableListInfo.time = newTiming.toString();
+                                    timeTableListInfo.time12 = newTiming.toString(Timing.FORMAT12);
+                                    timeTableListInfo.time24 = newTiming.toString(Timing.FORMAT24);
                                 }
                             }
 
@@ -114,7 +116,8 @@ public class ParseTimeTable {
                             //Log.d("inelseif", "inelseif");
                             timeTableListInfo.name = course.getCOURSE_TITLE();
                             timeTableListInfo.venue = course.getCOURSE_VENUE();
-                            timeTableListInfo.time = slotl.getSlotTiming().toString();
+                            timeTableListInfo.time12 = slotl.getSlotTiming().toString(Timing.FORMAT12);
+                            timeTableListInfo.time24 = slotl.getSlotTiming().toString(Timing.FORMAT24);
                             timeTableListInfo.clsnbr = Integer.parseInt(course.getCLASS_NUMBER());
                             timeTableListInfo.per = course.getCOURSE_ATTENDANCE().getPERCENTAGE() + " %";
                             timeTableListInfo.typeShort= course.getCOURSE_TYPE_SHORT();
@@ -129,6 +132,54 @@ public class ParseTimeTable {
         }
 
     }
+
+    public List<Timing> getCourseTimingByParsing(Course course){
+        List<Timing> timingList=new ArrayList<>();
+        List<List<Slot>> slotsMap;
+        if(course.getCOURSE_TYPE_SHORT().equals("T")&&dataHandler.getSemester().equals("SS")){
+            slotsMap=DataHandler.SS_THEORY_SLOTS;
+        }
+        else if(course.getCOURSE_TYPE_SHORT().equals("L")&&dataHandler.getSemester().equals("SS")){
+            slotsMap=DataHandler.SS_LAB_SLOTS;
+        }
+        else if(course.getCOURSE_TYPE_SHORT().equals("T")){
+            slotsMap=DataHandler.NS_THEORY_SLOTS;
+        }
+        else{
+            slotsMap=DataHandler.NS_LAB_SLOTS;
+        }
+
+        for (int i = 0; i < slotsMap.size(); i++) {
+            List<Slot> slotList = slotsMap.get(i);
+            for (int j = 0; j < slotList.size(); j++) {
+                Slot slot = slotList.get(j);
+                    String[] courseSlotsStrings = course.getCOURSE_SLOT().split("\\+");
+                    for (int l = 0; l < courseSlotsStrings.length; l++) {
+                        String s = courseSlotsStrings[l];
+                        if (slot.getSlotCode().equals(s)) {
+                            timingList.add(slot.getSlotTiming());
+                        }
+                    }
+
+                }
+            }
+        return timingList;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public List<List<TimeTableListInfo>> getFullTimeTable() {
@@ -156,7 +207,7 @@ public class ParseTimeTable {
         int curTime = (hour * 60) + minute;
         for (int i = 0; i < today.size(); i++) {
             Course c = dataHandler.getCourse(String.valueOf(today.get(i).clsnbr));
-            Timing t = Timing.decodeTimingFromString(today.get(i).time);
+            Timing t = Timing.decodeTimingFromString(today.get(i).time24);
             int st = (t.getHours(t.getSTART_TIME()) * 60) + t.getMinutes(t.getSTART_TIME());
             int et = (t.getHours(t.getEND_TIME()) * 60) + t.getMinutes(t.getEND_TIME());
             if (curTime >= st && curTime <= et) {
@@ -181,7 +232,7 @@ public class ParseTimeTable {
         int min = 0, flag = 0;
         for (int i = 0; i < today.size(); i++) {
             Course c = dataHandler.getCourse(String.valueOf(today.get(i).clsnbr));
-            Timing t = Timing.decodeTimingFromString(today.get(i).time);
+            Timing t = Timing.decodeTimingFromString(today.get(i).time24);
             //Log.d("time", today.get(i).time + " start" + t.getSTART_TIME() + " end" + t.getEND_TIME());
             int st = (t.getHours(t.getSTART_TIME()) * 60) + t.getMinutes(t.getSTART_TIME());
             int et = (t.getHours(t.getEND_TIME()) * 60) + t.getMinutes(t.getEND_TIME());
@@ -197,7 +248,7 @@ public class ParseTimeTable {
                 } else if (diff > 60 && diff < 180) {
                     todayHeader.setStatus("next in " + diff / 60 + "hr " + diff % 60 + " min");
                 } else {
-                    todayHeader.setStatus(today.get(i).time);
+                    todayHeader.setStatus(today.get(i).time12);
                 }
                 min = st;
             }

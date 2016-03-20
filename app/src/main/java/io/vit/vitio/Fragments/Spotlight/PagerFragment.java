@@ -18,14 +18,12 @@ package io.vit.vitio.Fragments.Spotlight;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -39,15 +37,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.vit.vitio.Fragments.Courses.CoursesFragment;
-import io.vit.vitio.Fragments.SubjectViewFragment;
-import io.vit.vitio.HomeActivity;
-import io.vit.vitio.Instances.Course;
-import io.vit.vitio.Instances.Mark;
+import io.vit.vitio.Extras.Themes.MyTheme;
 import io.vit.vitio.Instances.Message;
-import io.vit.vitio.Managers.DataHandler;
 import io.vit.vitio.Managers.Parsers.ParseSpotlight;
-import io.vit.vitio.Managers.Parsers.ParseTimeTable;
 import io.vit.vitio.R;
 
 /**
@@ -57,6 +49,7 @@ public class PagerFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private Typeface typeface;
+    private MyTheme myTheme;
     private SpotlightListAdapter adapter;
     private int MODE=0;
     private ParseSpotlight parseSpotlight;
@@ -78,7 +71,8 @@ public class PagerFragment extends Fragment {
 
     private void init(ViewGroup rootView) {
         recyclerView=(RecyclerView)rootView.findViewById(R.id.spotlight_recycler_view);
-        typeface = Typeface.createFromAsset(getResources().getAssets(), "fonts/Montserrat-Regular.ttf");
+        myTheme=new MyTheme(getActivity());
+        typeface = myTheme.getMyThemeTypeface();
         noContentView=(TextView)rootView.findViewById(R.id.nocontent_text);
         swipeRefreshLayout=(SwipeRefreshLayout)rootView.findViewById(R.id.swipe_refresh_layout);
     }
@@ -152,6 +146,8 @@ public class PagerFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        myTheme.refreshTheme();
+        typeface=myTheme.getMyThemeTypeface();
     }
 
     private class SpotlightListAdapter extends RecyclerView.Adapter<SpotlightListAdapter.SpotlightViewHolder> {

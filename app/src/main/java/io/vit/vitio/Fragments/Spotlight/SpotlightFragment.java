@@ -21,6 +21,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -30,6 +31,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +41,7 @@ import android.widget.Toast;
 import io.vit.vitio.Extras.ErrorDefinitions;
 import io.vit.vitio.Extras.ReturnParcel;
 import io.vit.vitio.Extras.SlidingTabLayout;
+import io.vit.vitio.Extras.Themes.MyTheme;
 import io.vit.vitio.Gcm.ApplicationConstants;
 import io.vit.vitio.HomeActivity;
 import io.vit.vitio.Managers.AppController;
@@ -61,6 +64,7 @@ public class SpotlightFragment extends Fragment implements ConnectAPI.RequestLis
     private SlidingTabLayout tabs;
     private Typeface typeface;
     private ProgressDialog dialog;
+    private MyTheme theme;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -70,6 +74,7 @@ public class SpotlightFragment extends Fragment implements ConnectAPI.RequestLis
         init(rootView);
         setInit();
         setData();
+        setTransitions();
         return rootView;
     }
 
@@ -80,6 +85,7 @@ public class SpotlightFragment extends Fragment implements ConnectAPI.RequestLis
         dataHandler=DataHandler.getInstance(getActivity());
         connectAPI=new ConnectAPI(getActivity());
         dialog=new ProgressDialog(getActivity());
+        theme=new MyTheme(getActivity());
     }
 
     private void setInit() {
@@ -91,8 +97,6 @@ public class SpotlightFragment extends Fragment implements ConnectAPI.RequestLis
                 return getResources().getColor(R.color.tabsScrollColor);
             }
         });
-
-
         dialog.setCancelable(true);
         dialog.setTitle("Please Wait");
         dialog.setMessage("Fetching Data...");
@@ -100,6 +104,12 @@ public class SpotlightFragment extends Fragment implements ConnectAPI.RequestLis
 
     }
 
+    private void setTransitions() {
+        if(Build.VERSION.SDK_INT>=21) {
+            setExitTransition(TransitionInflater.from(getActivity()).inflateTransition(android.R.transition.explode));
+            setReenterTransition(TransitionInflater.from(getActivity()).inflateTransition(android.R.transition.fade));
+        }
+    }
 
     public void setData() {
         connectAPI.fetchSpotlight();
@@ -109,8 +119,11 @@ public class SpotlightFragment extends Fragment implements ConnectAPI.RequestLis
     @Override
     public void onResume() {
         super.onResume();
-        ((HomeActivity) getActivity()).setToolbarFormat(6);
-        ((HomeActivity) getActivity()).changeStatusBarColor(6);
+        ((HomeActivity) getActivity()).setToolbarFormat(4);
+        ((HomeActivity) getActivity()).changeStatusBarColor(4);
+
+        theme.refreshTheme();
+        tabs.setBackgroundColor(theme.getToolbarColorTypedArray().getColor(4, -1));
     }
 
     @Override

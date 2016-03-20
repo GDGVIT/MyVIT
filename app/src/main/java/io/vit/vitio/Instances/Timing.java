@@ -21,6 +21,8 @@ package io.vit.vitio.Instances;
  */
 public class Timing {
 
+    public static int FORMAT12=0;
+    public static int FORMAT24=1;
     private Day DAY;
     private String START_TIME;
     private String END_TIME;
@@ -61,18 +63,30 @@ public class Timing {
         return this.END_TIME;
     }
 
-    public String formatTime(String s){
+    public String formatTime(String s, int mode){
         int time=Integer.parseInt((s.split(":"))[0]);
-        if(time<12){
-            return s+" AM";
+        if(mode==FORMAT12) {
+            if (time < 12) {
+                return s + " AM";
+            } else {
+                if (time != 12)
+                    time = time % 12;
+                String pmTime = time + ":" + s.split(":")[1];
+                return pmTime + " PM";
+            }
         }
-        else{
-            return s+" PM";
+        else if(mode==FORMAT24){
+            if (time < 12) {
+                return s + " AM";
+            } else {
+                return s + " PM";
+            }
         }
+        else return ":";
     }
-    @Override
-    public String toString() {
-        return formatTime(START_TIME)+" - "+formatTime(END_TIME);
+
+    public String toString(int mode) {
+            return formatTime(START_TIME, mode) + " - " + formatTime(END_TIME, mode);
     }
 
     public int getHours(String time){
@@ -93,5 +107,14 @@ public class Timing {
         decodedT.setSTART_TIME(split[0]);
         decodedT.setEND_TIME(split[1]);
         return decodedT;
+    }
+
+    public static Timing decodeRawTimingFromInstance(Timing t){
+        Timing decodedT=new Timing();
+        t.getSTART_TIME().replaceAll("[A-Za-z]*", "").trim();
+        t.getEND_TIME().replaceAll("[A-Za-z]*", "").trim();
+        t.setSTART_TIME(t.getSTART_TIME().substring(0,t.getSTART_TIME().indexOf(":",t.getSTART_TIME().indexOf(":")+1)));
+        t.setEND_TIME(t.getEND_TIME().substring(0,t.getEND_TIME().indexOf(":",t.getEND_TIME().indexOf(":")+1)));
+        return t;
     }
 }

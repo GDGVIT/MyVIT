@@ -18,109 +18,114 @@
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:id="@+id/row_holder"
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground">
-<LinearLayout
-    android:id="@+id/row_holder"
-    android:layout_width="match_parent"
-    android:layout_height="75dp"
-    android:clickable="true"
-    android:orientation="vertical"
-    android:padding="5dp"
-    android:background="@drawable/selectablewhite"
-    android:layout_marginTop="6dp"
-    android:layout_marginBottom="7dp">
 
     <LinearLayout
+        android:id="@+id/inner_row_holder"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:weightSum="100">
-
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="7dp"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/selectablewhite"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:padding="5dp">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="70"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="5dp">
+            android:orientation="horizontal"
+            android:weightSum="100">
+
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="70"
+                android:gravity="left|center_vertical"
+                android:orientation="vertical"
+                android:paddingLeft="5dp">
 
-                <FrameLayout
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp">
-                    <ImageView
-                        android:layout_width="16sp"
-                        android:layout_height="16sp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/rectangle"
-                        />
-                    <TextView
+                    android:layout_height="wrap_content">
+
+                    <FrameLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="L"
-                        android:layout_gravity="center"
-                        android:textSize="13sp"
-                        android:id="@+id/subject_type_short"
-                        android:layout_margin="5dp"
-                        android:textColor="@color/white"/>
+                        android:layout_marginRight="5dp">
+
+                        <ImageView
+                            android:layout_width="16sp"
+                            android:layout_height="16sp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/rectangle" />
+
+                        <TextView
+                            android:id="@+id/subject_type_short"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="5dp"
+                            android:text="L"
+                            android:textColor="@color/white"
+                            android:textSize="13sp" />
                     </FrameLayout>
 
-            <TextView
-                android:id="@+id/subject_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="@dimen/general_medium2_thin"
-                android:layout_gravity="center"
-                android:maxLines="2"
-                android:text="SEMICONDUCTOR"
-                android:textColor="@color/black"/>
+                    <TextView
+                        android:id="@+id/subject_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:maxLines="2"
+                        android:text="SEMICONDUCTOR"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/general_medium2_thin"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/subject_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="8 am"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/drawer_textsize_small" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/subject_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/drawer_textsize_small"
-                android:layout_marginTop="2dp"
-                android:text="8 am"
-                android:textColor="@color/black"/>
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="30"
+                android:paddingBottom="3dp"
+                android:paddingRight="3dp"
+                android:paddingTop="3dp">
+
+                <TextView
+                    android:id="@+id/subject_per"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|top"
+                    android:text="79 %"
+                    android:textColor="@color/fadegreen"
+                    android:textSize="@dimen/general_big_thin"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/subject_venue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:layout_marginTop="10dp"
+                    android:text="SJT701"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/general_big_thin"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
         </LinearLayout>
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="30"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp"
-            android:paddingRight="3dp">
-
-            <TextView
-                android:id="@+id/subject_per"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="@dimen/general_big_thin"
-                android:text="79 %"
-                android:layout_gravity="right|top"
-                android:textColor="@color/fadegreen"/>
-
-            <TextView
-                android:id="@+id/subject_venue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/general_big_thin"
-                android:textStyle="bold"
-                android:text="SJT701"
-                android:layout_gravity="bottom|right"
-                android:textColor="@color/black"/>
-        </FrameLayout>
-
     </LinearLayout>
-</LinearLayout>
 </FrameLayout>

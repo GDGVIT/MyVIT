@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2015 GDG VIT Vellore.
   ~ This program is free software: you can redistribute it and/or modify
   ~     it under the terms of the GNU General Public License as published by
@@ -16,5 +15,36 @@
   -->
 
 <resources>
+
+    <string-array name="theme_list_preference">
+        <item>Standard</item>
+        <item>Classic</item>
+        <item>Indigo</item>
+        <item>Mono</item>
+
+    </string-array>
+
+    <string-array name="theme_list_preference_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+
+    </string-array>
+
+    <string-array name="font_list_preference">
+        <item>Montserrat</item>
+        <item>Roboto</item>
+        <item>Segoe Regular</item>
+        <item>Roboto Italic</item>
+
+    </string-array>
+
+    <string-array name="font_list_preference_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
 
 </resources>

@@ -20,7 +20,10 @@ package io.vit.vitio.Managers;
  * Created by shalini on 21-02-2015.
  */
 import android.app.Application;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -42,6 +45,11 @@ public class AppController extends Application {
         super.onCreate();
         mInstance = this;
         DataHandler d=new DataHandler(getApplicationContext());
+        if(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("theme","null").equals("null")){
+            SharedPreferences.Editor editor=PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
+            editor.putString("theme","0").commit();
+            Log.d("apptheme",PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("theme","null"));
+        }
     }
 
     public static synchronized AppController getInstance() {

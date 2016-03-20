@@ -21,6 +21,7 @@ import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -94,7 +95,13 @@ public class ConnectAPI {
                     ReturnParcel parcel = new ReturnParcel(ErrorDefinitions.CODE_NETWORK);
                     mListener.onErrorRequest(parcel,SERVERTEST_CODE);
                 }
-            });
+            }){
+                @Override
+                protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+                    Log.d("pnresponse",response.toString());
+                    return super.parseNetworkResponse(response);
+                }
+            };
             jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(8000,
                     2,
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));

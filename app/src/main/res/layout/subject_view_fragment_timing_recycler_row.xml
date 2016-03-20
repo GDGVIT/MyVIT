@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2015 GDG VIT Vellore.
+  ~ This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
+  ~
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<FrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="45dp"
+    android:layout_width="match_parent"
+    android:background="?attr/selectableItemBackground">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:background="?attr/selectableItemBackground"
+        android:id="@+id/row_holder"
+        android:paddingTop="10dp"
+        android:weightSum="100">
+
+        <TextView
+            android:id="@+id/timings_day"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="Monday"
+            android:textColor="@color/black"
+            android:textSize="@dimen/general_medium2_thin" />
+
+        <TextView
+            android:id="@+id/timings_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="60"
+            android:text="2:30 pm- 3:00 pm"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="13sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:id="@+id/hor_line"
+        android:layout_gravity="bottom"
+        android:background="@color/lightgray"></LinearLayout>
+</FrameLayout>

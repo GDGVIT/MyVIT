@@ -26,6 +26,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -36,12 +37,10 @@ import android.text.SpannableString;
 import android.util.Log;
 import android.widget.LinearLayout;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import java.io.IOException;
 
+import io.vit.vitio.Extras.Themes.MyTheme;
 import io.vit.vitio.Extras.TypeFaceSpan;
 import io.vit.vitio.Fragments.Today.TodayFragment;
 import io.vit.vitio.Managers.DataHandler;
@@ -56,6 +55,7 @@ public class HomeActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private LinearLayout nonDrawerView;
     private DataHandler dataHandler;
+    private MyTheme theme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,10 +69,6 @@ public class HomeActivity extends AppCompatActivity {
         NavigationDrawerFragment navigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.drawer_fragment);
         navigationDrawerFragment.setUp(drawerLayout, toolbar, this);
 
-
-        ///////gcm
-
-
     }
 
 
@@ -81,6 +77,7 @@ public class HomeActivity extends AppCompatActivity {
         nonDrawerView = (LinearLayout) findViewById(R.id.restdrawer);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         toolbar = (Toolbar) findViewById(R.id.app_bar);
+        theme=new MyTheme(this);
     }
 
     private void initializeFragment() {
@@ -97,27 +94,30 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void setToolbarFormat(int pos) {
+        theme.refreshTheme();
         if(!getSupportActionBar().isShowing()){
             getSupportActionBar().show();
         }
         String title[] = getResources().getStringArray(R.array.drawer_list_titles);
-        TypedArray colorres = getResources().obtainTypedArray(R.array.toolbar_colors);
+        TypedArray colorres = theme.getToolbarColorTypedArray();
+        Log.d("setTooltheme", PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("theme","null"));
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(colorres.getResourceId(pos, -1))));
         SpannableString s = new SpannableString(title[pos]);
-        s.setSpan(new TypeFaceSpan(this, "Montserrat-Regular.ttf"), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(theme.getMyThemeTypeFaceSpan(), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         getSupportActionBar().setTitle(s);
     }
 
     public void setToolbarFormat(int pos, String t) {
-
+        theme.refreshTheme();
         if(!getSupportActionBar().isShowing()){
             getSupportActionBar().show();
         }
         String title = t;
-        TypedArray colorres = getResources().obtainTypedArray(R.array.toolbar_colors);
+        TypedArray colorres = theme.getToolbarColorTypedArray();
+        Log.d("setTooltheme", PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("theme","null"));
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(colorres.getResourceId(pos, -1))));
         SpannableString s = new SpannableString(title);
-        s.setSpan(new TypeFaceSpan(this, "Montserrat-Regular.ttf"), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(theme.getMyThemeTypeFaceSpan(), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         getSupportActionBar().setTitle(s);
     }
 
@@ -136,9 +136,24 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void changeStatusBarColor(int i) {
-        TypedArray colorres = getResources().obtainTypedArray(R.array.statusbar_colors);
+        theme.refreshTheme();
+        Log.d("getStatheme", PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("theme","null"));
+        Log.d("myTh", String.valueOf(theme.getMyThemeCode()));
+        TypedArray colorres = theme.getStatusColorTypedArray();
         if (Build.VERSION.SDK_INT >= 21) {
             getWindow().setStatusBarColor(getResources().getColor(colorres.getResourceId(i, -1)));
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        /*if(getSupportFragmentManager().getBackStackEntryCount()!=0) {
+            Log.d("cF", getSupportFragmentManager().getBackStackEntryAt(getSupportFragmentManager().getBackStackEntryCount() - 1).toString());
+            if (getSupportFragmentManager().getBackStackEntryAt(getSupportFragmentManager().getBackStackEntryCount() - 1)) {
+                Log.d("instance", "today");
+                finish();
+            }
+        }*/
+        super.onBackPressed();
     }
 }

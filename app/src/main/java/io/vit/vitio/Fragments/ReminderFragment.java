@@ -23,6 +23,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import io.vit.vitio.HomeActivity;
 import io.vit.vitio.R;
 
 /**
@@ -34,5 +35,11 @@ public class ReminderFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
                 R.layout.reminder_fragment, container, false);
         return rootView;
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((HomeActivity) getActivity()).setToolbarFormat(4);
+        ((HomeActivity) getActivity()).changeStatusBarColor(4);
     }
 }

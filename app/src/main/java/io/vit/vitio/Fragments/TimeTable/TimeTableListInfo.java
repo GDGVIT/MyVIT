@@ -20,7 +20,7 @@ package io.vit.vitio.Fragments.TimeTable;
  * Created by shalini on 23-02-2015.
  */
 public class TimeTableListInfo {
-    public String name,time,per,venue,typeShort;
+    public String name,time12,time24,per,venue,typeShort;
     public int clsnbr;
 
 }

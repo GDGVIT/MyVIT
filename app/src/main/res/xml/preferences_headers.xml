@@ -29,7 +29,34 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:title="Appearance">
+
+        <ListPreference
+            android:key="theme"
+            android:title="Theme"
+            android:entries="@array/theme_list_preference"
+            android:entryValues="@array/theme_list_preference_values"
+            android:dialogTitle="Themes"
+            android:negativeButtonText="Cancel"
+            android:positiveButtonText="Set" />
+
+        <ListPreference
+            android:key="font"
+            android:title="Font"
+            android:entries="@array/font_list_preference"
+            android:entryValues="@array/font_list_preference_values"
+            android:dialogTitle="Fonts"
+            android:negativeButtonText="Cancel"
+            android:positiveButtonText="Set" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="About">
+
+        <Preference
+            android:key="comingsoon"
+            android:title="Coming Soon!">
+        </Preference>
 
         <Preference
             android:key="about"

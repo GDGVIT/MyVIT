@@ -24,6 +24,10 @@
         <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:colorAccent">@color/colorAccent</item>
         <item name="android:screenOrientation">portrait</item>
+        <item name="android:windowContentTransitions">true</item>
+
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
     </style>
 
     <style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="Theme.AppCompat.Light.NoActionBar">
@@ -35,6 +39,12 @@
 
     <style name="myRadioButton" parent="@style/Widget.AppCompat.CompoundButton.RadioButton">
         <item name="android:color">@color/lightgray</item>
+    </style>
+
+    <style name="menu_labels_style">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:elevation">1dp</item>
+        <item name="android:textStyle">bold</item>
     </style>
     
 </resources>

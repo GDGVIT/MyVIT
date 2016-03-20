@@ -14,7 +14,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.vit.vitio.Fragments;
+package io.vit.vitio.Fragments.SubjectView;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -136,6 +136,8 @@ public class SubjectViewFragment extends Fragment implements View.OnClickListene
         subFaculty.setTypeface(typeface);
         //subSchool.setTypeface(typeface);
         attended.setTypeface(typeface);
+        attendClassText.setTypeface(typeface);
+        missClassText.setTypeface(typeface);
 
     }
 
